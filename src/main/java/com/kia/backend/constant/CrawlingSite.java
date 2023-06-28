@@ -10,11 +10,11 @@ public enum CrawlingSite {
     KIA("https://www.kia.com", true),
     GENESIS("https://www.genesis.com", true);
 
-    @Getter private final String siteUrl;
+    @Getter private final String url;
     @Getter private final Boolean isUsed;
 
-    CrawlingSite(String siteUrl, Boolean isUsed) {
-        this.siteUrl = siteUrl;
+    CrawlingSite(String url, Boolean isUsed) {
+        this.url = url;
         this.isUsed = isUsed;
     }
 }

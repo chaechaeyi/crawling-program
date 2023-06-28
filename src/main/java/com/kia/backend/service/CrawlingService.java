@@ -1,30 +1,23 @@
 package com.kia.backend.service;
 
-import io.netty.util.concurrent.Future;
-
-import java.util.concurrent.CompletableFuture;
-
 /**
  * 크롤링 service
  */
 public interface CrawlingService {
-
     /**
-     * 대상 사이트의 html 추출 (async)
-     * @return
-     */
-    CompletableFuture<String> getAsyncHtmlStringByCrawlingSite(String siteUrl);
-
-    /**
+     * 모든 대상 사이트의 html 추출 (async)
      *
-     * @param siteUrl
      * @return
      */
-    String getHtmlStringByCrawlingSite(String siteUrl);
+    String getAllAsyncCrawling();
 
     /**
-     * 모든 대상 사이트의 html 추출
+     * 대상 사이트 html 추출
+     *
+     * @param url
      * @return
      */
-    String getHtmlStringByCrawlingSiteAll();
+    String getCrawlingByUrl(String url);
+
+
 }

@@ -19,11 +19,11 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 정상 return 테스트")
-    void givenTestDataNothing_whenCrawlingSiteAll_thenGetHtmlStringCheck() {
+    void givenTestDataNothing_whenGetAllAsyncCrawling_thenGetHtmlStringCheck() {
         // given
-        //String kiaSiteUrl = CrawlingSite.KIA.getSiteUrl();
+        //String kiaSiteUrl = CrawlingSite.KIA.getUrl();
         // when
-        String html = crawlingService.getHtmlStringByCrawlingSiteAll();
+        String html = crawlingService.getAllAsyncCrawling();
         // then
         // html 시작 태그와 종료 태그 check
         assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);
@@ -33,18 +33,18 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트")
-    void givenTestData_whenCrawlingSiteAndCrawlingSiteAll_thenTimeCheck() {
+    void givenTestData_whenGetCrawlingByUrlAndGetAllAsyncCrawling_thenTimeCheck() {
         // given CrawlingSite
         // when
         long beforeTime = System.currentTimeMillis();
         for (CrawlingSite crawlingSite : CrawlingSite.values()) {
-            crawlingService.getHtmlStringByCrawlingSite(crawlingSite.getSiteUrl());
+            crawlingService.getCrawlingByUrl(crawlingSite.getUrl());
         }
         long afterTime = System.currentTimeMillis();
         long oneTaskTime = (afterTime - beforeTime) / 1000;
 
         beforeTime = System.currentTimeMillis();
-        crawlingService.getHtmlStringByCrawlingSiteAll();
+        crawlingService.getAllAsyncCrawling();
         afterTime = System.currentTimeMillis();
         long allTaskTime = (afterTime - beforeTime) / 1000;
 
@@ -56,16 +56,16 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 병렬로 처리가 되는데 순서 상관없이 실행되는지 테스트")
-    void givenTestData_whenCrawlingSiteAndCrawlingSiteAll_thenExcuteObjectCheck() {
+    void givenTestData_whenGetAllAsyncCrawling_thenExcuteObjectCheck() {
         // given
-        String kiaSiteUrl = CrawlingSite.KIA.getSiteUrl();
+        String kiaSiteUrl = CrawlingSite.KIA.getUrl();
         // when
         long beforeTime = System.currentTimeMillis();
-        String html = crawlingService.getHtmlStringByCrawlingSite(kiaSiteUrl);
+        String html = crawlingService.getCrawlingByUrl(kiaSiteUrl);
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime) / 1000;
 
-        String allHtml = crawlingService.getHtmlStringByCrawlingSiteAll();
+        String allHtml = crawlingService.getAllAsyncCrawling();
         // then
         // html 시작 태그와 종료 태그 check
         assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);
