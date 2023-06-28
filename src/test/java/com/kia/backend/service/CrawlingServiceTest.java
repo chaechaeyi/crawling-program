@@ -7,11 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("크롤링 테스트")
 @SpringBootTest
@@ -23,11 +19,53 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 정상 return 테스트")
-    void givenTestDataNothing_whenCralingSite_thenGetHtmlStringCheck() {
+    void givenTestDataNothing_whenCrawlingSiteAll_thenGetHtmlStringCheck() {
         // given
         //String kiaSiteUrl = CrawlingSite.KIA.getSiteUrl();
         // when
         String html = crawlingService.getHtmlStringByCrawlingSiteAll();
+        // then
+        // html 시작 태그와 종료 태그 check
+        assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);
+        // html 시작 태그의 수가 크롤링 대상 사이트 수와 동일한지 check
+        assertThat(CrawlingSite.values().length).isEqualTo(StringUtils.countOccurrencesOf(html, htmlStartTag));
+    }
+
+    @Test
+    @DisplayName("크롤링 테스트 - 크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트")
+    void givenTestData_whenCrawlingSiteAndCrawlingSiteAll_thenTimeCheck() {
+        // given CrawlingSite
+        // when
+        long beforeTime = System.currentTimeMillis();
+        for (CrawlingSite crawlingSite : CrawlingSite.values()) {
+            crawlingService.getHtmlStringByCrawlingSite(crawlingSite.getSiteUrl());
+        }
+        long afterTime = System.currentTimeMillis();
+        long oneTaskTime = (afterTime - beforeTime) / 1000;
+
+        beforeTime = System.currentTimeMillis();
+        crawlingService.getHtmlStringByCrawlingSiteAll();
+        afterTime = System.currentTimeMillis();
+        long allTaskTime = (afterTime - beforeTime) / 1000;
+
+        // then
+        // 병렬로 모든 사이트 크롤링 하는 시간이 건건이 모든 사이트 크롤링 하는 시간보다 작다.
+        assertThat(oneTaskTime).isGreaterThan(allTaskTime);
+
+    }
+
+    @Test
+    @DisplayName("크롤링 테스트 - 병렬로 처리가 되는데 순서 상관없이 실행되는지 테스트")
+    void givenTestData_whenCrawlingSiteAndCrawlingSiteAll_thenExcuteObjectCheck() {
+        // given
+        String kiaSiteUrl = CrawlingSite.KIA.getSiteUrl();
+        // when
+        long beforeTime = System.currentTimeMillis();
+        String html = crawlingService.getHtmlStringByCrawlingSite(kiaSiteUrl);
+        long afterTime = System.currentTimeMillis();
+        long secDiffTime = (afterTime - beforeTime) / 1000;
+
+        String allHtml = crawlingService.getHtmlStringByCrawlingSiteAll();
         // then
         // html 시작 태그와 종료 태그 check
         assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);

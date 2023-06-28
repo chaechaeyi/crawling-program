@@ -20,16 +20,25 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class CrawlingServiceImpl implements CrawlingService {
+    /**
+     * 대상 사이트의 html 추출 (async)
+     *
+     * @return
+     */
+    @Async(value = "crawlingTaskExecutor")
+    @Override
+    public CompletableFuture<String> getAsyncHtmlStringByCrawlingSite(String siteUrl) {
+        return CompletableFuture.supplyAsync(() -> extractHtml(siteUrl));
+    }
 
     /**
      * 대상 사이트의 html 추출
      *
      * @return
      */
-    @Async(value = "crawlingTaskExecutor")
     @Override
-    public CompletableFuture<String> getHtmlStringByCrawlingSite(String siteUrl) {
-        return CompletableFuture.supplyAsync(() -> extractHtml(siteUrl));
+    public String getHtmlStringByCrawlingSite(String siteUrl) {
+        return extractHtml(siteUrl);
     }
 
     /**
@@ -53,8 +62,8 @@ public class CrawlingServiceImpl implements CrawlingService {
             Document document = Jsoup.connect(siteUrl).timeout(TimeConstant.JSOUP_TIME_OUT_MILLIS).get();
             return document.html();
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            log.error("extractHtml exception e : {}", e);
+            return "";
         }
     }
 }

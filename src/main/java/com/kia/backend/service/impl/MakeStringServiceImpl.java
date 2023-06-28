@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MakeMakeStringServiceImpl implements MakeStringService {
+public class MakeStringServiceImpl implements MakeStringService {
     @Override
     public String getMergeString(String targetString) {
         Stream<Character> preProcessString = replaceDistinctSortCharStream(targetString);
@@ -27,8 +27,7 @@ public class MakeMakeStringServiceImpl implements MakeStringService {
      * @param targetString
      * @return
      */
-    private Stream<Character> replaceDistinctSortCharStream(String targetString) {
-        //targetString = "AaBCDdefghIilmtv12";
+    public Stream<Character> replaceDistinctSortCharStream(String targetString) {
         return targetString
                 .replaceAll(PatternConstant.ALPHABET_NUMBERIC_PATTERN, "")
                 .chars()
@@ -43,7 +42,7 @@ public class MakeMakeStringServiceImpl implements MakeStringService {
      * @param charStream
      * @return
      */
-    private String alphabetNumericCrossSort(Stream<Character> charStream) {
+    public String alphabetNumericCrossSort(Stream<Character> charStream) {
         StringBuilder uppercase = new StringBuilder();
         StringBuilder lowercase = new StringBuilder();
         StringBuilder digits = new StringBuilder();
