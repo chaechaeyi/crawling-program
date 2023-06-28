@@ -18,23 +18,21 @@ public class MakeStringServiceImpl implements MakeStringService {
 
     /**
      * 문자열 merge
-     *
      * @param targetString
      * @return
      */
     @Override
     public String getMergeString(String targetString) {
-        Stream<Character> preProcessString = replaceDistinctSortCharStream(targetString);
-        return alphabetNumericCrossSort(preProcessString);
+        Stream<Character> charStream = getCharFilter(targetString);
+        return getCrossSort(charStream);
     }
 
     /**
      * 전처리 (알파벳,숫자 제외하고 모두 제거(replace)/distinct/sort 처리 된 char stream)
-     *
      * @param targetString
      * @return
      */
-    public Stream<Character> replaceDistinctSortCharStream(String targetString) {
+    public Stream<Character> getCharFilter(String targetString) {
         return targetString
                 .replaceAll(PatternConstant.ALPHABET_NUMBERIC_PATTERN, "")
                 .chars()
@@ -45,11 +43,10 @@ public class MakeStringServiceImpl implements MakeStringService {
 
     /**
      * 알파벳, 숫자 크로스 정렬
-     *
      * @param charStream
      * @return
      */
-    public String alphabetNumericCrossSort(Stream<Character> charStream) {
+    public String getCrossSort(Stream<Character> charStream) {
         StringBuilder uppercase = new StringBuilder();
         StringBuilder lowercase = new StringBuilder();
         StringBuilder digits = new StringBuilder();

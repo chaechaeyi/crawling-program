@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/string/output")
 @RequiredArgsConstructor
-public class OutputStringController {
+public class StringOutputController {
     private final CrawlingService crawlingService;
     private final MakeStringService makeStringService;
 
     /**
      * html 코드 내에서 문자열 추출
-     *
      * @return
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> getMergeStringInHtml() {
-        String htmlString = crawlingService.getHtmlStringByCrawlingSiteAll();
-        return new ResponseEntity<>(makeStringService.getMergeString(htmlString), HttpStatus.OK);
+    public ResponseEntity<String> getOuputString() {
+        String html = crawlingService.getAllAsyncCrawling();
+        return new ResponseEntity<>(makeStringService.getMergeString(html), HttpStatus.OK);
     }
 }
