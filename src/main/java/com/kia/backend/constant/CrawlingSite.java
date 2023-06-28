@@ -1,0 +1,20 @@
+package com.kia.backend.constant;
+
+import lombok.Getter;
+
+/**
+ * 크롤링 대상 사이트
+ */
+public enum CrawlingSite {
+    HYUNDAI("https://shop.hyundai.com", true),
+    KIA("https://www.kia.com", true),
+    GENESIS("https://www.genesis.com", true);
+
+    @Getter private final String siteUrl;
+    @Getter private final Boolean isUsed;
+
+    CrawlingSite(String siteUrl, Boolean isUsed) {
+        this.siteUrl = siteUrl;
+        this.isUsed = isUsed;
+    }
+}
