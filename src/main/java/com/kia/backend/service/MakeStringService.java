@@ -8,13 +8,15 @@ import java.util.stream.Stream;
 public interface MakeStringService {
 
     /**
-     * html 코드 내에서 문자열 추출
+     * 문자열 merge
+     *
+     * @param targetString
      * @return
      */
     String getMergeString(String targetString) ;
 
     /**
-     * 전처리 (replace/distinct/sort처리 된 char stream)
+     * 전처리 (알파벳,숫자 제외하고 모두 제거(replace)/distinct/sort 처리 된 char stream)
      *
      * @param targetString
      * @return

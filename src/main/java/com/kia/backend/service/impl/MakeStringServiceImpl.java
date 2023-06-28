@@ -15,6 +15,13 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class MakeStringServiceImpl implements MakeStringService {
+
+    /**
+     * 문자열 merge
+     *
+     * @param targetString
+     * @return
+     */
     @Override
     public String getMergeString(String targetString) {
         Stream<Character> preProcessString = replaceDistinctSortCharStream(targetString);
@@ -22,7 +29,7 @@ public class MakeStringServiceImpl implements MakeStringService {
     }
 
     /**
-     * 전처리 (replace/distinct/sort처리 된 char stream)
+     * 전처리 (알파벳,숫자 제외하고 모두 제거(replace)/distinct/sort 처리 된 char stream)
      *
      * @param targetString
      * @return
