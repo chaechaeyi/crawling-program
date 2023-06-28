@@ -10,9 +10,14 @@ import java.util.concurrent.CompletableFuture;
 public interface CrawlingService {
 
     /**
-     * html String 추출
-     * @param siteUrl
+     * 대상 사이트의 html 추출
      * @return
      */
-    CompletableFuture<String> getHtmlStringInCrawling(String siteUrl);
+    CompletableFuture<String> getHtmlStringByCrawlingSite(String siteUrl);
+
+    /**
+     * 모든 대상 사이트의 html 추출
+     * @return
+     */
+    String getHtmlStringByCrawlingSiteAll();
 }
