@@ -51,29 +51,28 @@ class FilterStringControllerTest {
     @DisplayName("문자열 출력 api 컨트롤러 테스트 - ehcache 테스트")
     void givenTestDataNothing_whenGetFilterString_thenApplyEhcacheCheck() throws Exception {
         // given
+        int cacheTtlMillis = 5000 ;
         // when & then
         // 최초 호출 시 cache 적용 되지 않음
-        long beforeTime = System.currentTimeMillis();
+        long beforeTime, afterTime, noEhCacheTime , ehCacheTime;
+
+        beforeTime = System.currentTimeMillis();
         mvc.perform(get("/filter/string")).andExpect(status().isOk());
-        long afterTime = System.currentTimeMillis();
-        long noEhCacheTime = afterTime - beforeTime;
+        afterTime = System.currentTimeMillis();
+        noEhCacheTime = afterTime - beforeTime;
 
         // 1회 호출 이후 ttl이 지나지 않았므로 cache 적용되어 응답이 더 빠름
         beforeTime = System.currentTimeMillis();
         mvc.perform(get("/filter/string")).andExpect(status().isOk());
         afterTime = System.currentTimeMillis();
-        long ehCacheTime = afterTime - beforeTime;
+        ehCacheTime = afterTime - beforeTime;
         assertThat(noEhCacheTime).isGreaterThan(ehCacheTime);
 
-        // cache 시간을 만료시키기 위해서 ttl 만큼 sleep
-        int ehcacheMillis = 3000;
-        Thread.sleep(ehcacheMillis);
-
-        // ttl 만료 이후 최초 접속이므로 시간이 cache 적용 시 보다 더 오래걸림
+        // 1회 호출 이후 ttl이 지나지 않았므로 cache 적용되어 응답이 더 빠름
         beforeTime = System.currentTimeMillis();
         mvc.perform(get("/filter/string")).andExpect(status().isOk());
         afterTime = System.currentTimeMillis();
-        noEhCacheTime = afterTime - beforeTime;
+        ehCacheTime = afterTime - beforeTime;
         assertThat(noEhCacheTime).isGreaterThan(ehCacheTime);
     }
 

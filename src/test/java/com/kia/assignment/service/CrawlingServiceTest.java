@@ -42,22 +42,23 @@ class CrawlingServiceTest {
     void givenTestData_whenGetCrawlingByUrlAndGetAllParallelCrawling_thenTimeCheck() {
         // given CrawlingSite
         // when
-        long beforeTime = System.currentTimeMillis();
+        long beforeTime, afterTime, taskTime, parallelTaskTime;
+
+        beforeTime = System.currentTimeMillis();
         for (CrawlingSite crawlingSite : CrawlingSite.values()) {
             crawlingService.getCrawlingByUrl(crawlingSite.getUrl());
         }
-        long afterTime = System.currentTimeMillis();
-        long taskTime = (afterTime - beforeTime) / 1000;
+        afterTime = System.currentTimeMillis();
+        taskTime = (afterTime - beforeTime) / 1000;
 
         beforeTime = System.currentTimeMillis();
         crawlingService.getAllParallelCrawling();
         afterTime = System.currentTimeMillis();
-        long asyncTaskTime = (afterTime - beforeTime) / 1000;
+        parallelTaskTime = (afterTime - beforeTime) / 1000;
 
         // then
         // async로 모든 사이트 크롤링 하는 시간이 건건이 모든 사이트 크롤링 하는 시간보다 작다.
-        assertThat(taskTime).isGreaterThan(asyncTaskTime);
-
+        assertThat(taskTime).isGreaterThan(parallelTaskTime);
     }
 
     @Test
