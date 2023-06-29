@@ -70,9 +70,10 @@ class CrawlingServiceTest {
         List<String> taskList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             StringBuilder task = new StringBuilder();
-            CompletableFuture.supplyAsync(()-> "work1").thenAccept(s -> task.append(s));
-            CompletableFuture.supplyAsync(()-> "work2").thenAccept(s -> task.append(s));
-            CompletableFuture.supplyAsync(()-> "work3").thenAccept(s -> task.append(s));
+
+            CompletableFuture.supplyAsync(()-> Thread.currentThread().getName()).thenAccept(s -> task.append(s));
+            CompletableFuture.supplyAsync(()-> Thread.currentThread().getName()).thenAccept(s -> task.append(s));
+            CompletableFuture.supplyAsync(()-> Thread.currentThread().getName()).thenAccept(s -> task.append(s));
 
             Thread.sleep(2000);
             taskList.add(task.toString());
