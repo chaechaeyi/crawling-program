@@ -1,7 +1,6 @@
 package com.kia.backend.service;
 
 import com.kia.backend.constant.CrawlingSite;
-import com.kia.backend.constant.TimeOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
-import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("크롤링 테스트")
@@ -70,19 +65,13 @@ class CrawlingServiceTest {
         // given
         // when
         List<String> taskList = new ArrayList<>();
-        for(int i=0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             StringBuilder task = new StringBuilder();
-            CompletableFuture.supplyAsync(() ->
-                            Thread.currentThread().getName())
-                    .thenAccept(s -> task.append("work1"));
-            CompletableFuture.supplyAsync(() ->
-                            Thread.currentThread().getName())
-                    .thenAccept(s -> task.append("work2"));
-            CompletableFuture.supplyAsync(() ->
-                            Thread.currentThread().getName())
-                    .thenAccept(s -> task.append("work3"));
+            CompletableFuture.supplyAsync(() -> Thread.currentThread().getName()) .thenAccept(s -> task.append("work1"));
+            CompletableFuture.supplyAsync(() -> Thread.currentThread().getName()) .thenAccept(s -> task.append("work2"));
+            CompletableFuture.supplyAsync(() -> Thread.currentThread().getName()) .thenAccept(s -> task.append("work3"));
 
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             taskList.add(task.toString());
         }
 
