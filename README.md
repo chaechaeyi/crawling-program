@@ -29,7 +29,7 @@ sequenceDiagram
     * service
 * src.test.java.com.kia.assignment
     * controller
-    * ervice
+    * service
 
 ## 프로젝트 테스트 코드 구성 
 1. FilterStringControllerTest.java - 문자열 출력 api 컨트롤러 테스트
