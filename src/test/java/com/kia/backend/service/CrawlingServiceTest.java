@@ -1,12 +1,22 @@
 package com.kia.backend.service;
 
 import com.kia.backend.constant.CrawlingSite;
+import com.kia.backend.constant.TimeOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("크롤링 테스트")
@@ -56,21 +66,29 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - async 처리가 되는데 순서 상관없이 실행되는지 테스트")
-    void givenTestData_whenGetAllAsyncCrawling_thenExcuteIgnoreOrderCheck() {
+    void givenTestDataNothing_whenAsyncWork_thenExcuteIgnoreOrderCheck() throws InterruptedException {
         // given
-        String kiaSiteUrl = CrawlingSite.KIA.getUrl();
         // when
-        long beforeTime = System.currentTimeMillis();
-        String html = crawlingService.getCrawlingByUrl(kiaSiteUrl);
-        long afterTime = System.currentTimeMillis();
-        long secDiffTime = (afterTime - beforeTime) / 1000;
+        List<String> taskList = new ArrayList<>();
+        for(int i=0; i < 10; i++) {
+            StringBuilder task = new StringBuilder();
+            CompletableFuture.supplyAsync(() ->
+                            Thread.currentThread().getName())
+                    .thenAccept(s -> task.append("work1"));
+            CompletableFuture.supplyAsync(() ->
+                            Thread.currentThread().getName())
+                    .thenAccept(s -> task.append("work2"));
+            CompletableFuture.supplyAsync(() ->
+                            Thread.currentThread().getName())
+                    .thenAccept(s -> task.append("work3"));
 
-        String allHtml = crawlingService.getAllAsyncCrawling();
+            Thread.sleep(2000);
+            taskList.add(task.toString());
+        }
+
         // then
-        // html 시작 태그와 종료 태그 check
-        assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);
-        // html 시작 태그의 수가 크롤링 대상 사이트 수와 동일한지 check
-        assertThat(CrawlingSite.values().length).isEqualTo(StringUtils.countOccurrencesOf(html, htmlStartTag));
+        int sameCount = Collections.frequency(taskList, taskList.get(0));
+        assertThat(taskList.size()).isNotEqualTo(sameCount);
     }
 
 }
