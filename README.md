@@ -8,7 +8,7 @@
 * jsoup
 
 ## Process
-### html String filtering
+### html filtering
 ```mermaid
 sequenceDiagram
     actor User
@@ -17,7 +17,7 @@ sequenceDiagram
     User->>Crawling: 필터링 된 String 반환 요청, 크롤링 html 하나로 merge
     Note over User, Crawling: async방식으로 크롤링 진행(hyundai/kia/genesis)  
     Crawling->>Filter: html String filtering
-    Note over Crawling, Filter: 알파벳,숫자만남기고 제거/char변환/중복 제거/오름차순으로 정렬/cross정렬 진행
+    Note over Crawling, Filter: 알파벳,숫자만남기고 제거/char변환<br/>/중복 제거/오름차순으로 정렬/cross정렬 진행
     Filter->>User: filtering 된 최종 형태의 String을 반환
 ```
 # 프로젝트 패키지 구성
