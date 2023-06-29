@@ -23,13 +23,13 @@ sequenceDiagram
 ---------------------------------------
 ## 프로젝트 패키지 구성
 > src.main.javacom.kia.assignment
->    > controller
->    > constant
->    > dto
->    > service
+>	> controller
+>	> constant
+>	> dto
+>	> service
 > src.test.java.com.kia.assignment
->    > controller
->    > service
+>	> controller
+>	> ervice
 ---------------------------------------
 ## 프로젝트 테스트 코드 구성 
 1. FilterStringControllerTest.java
