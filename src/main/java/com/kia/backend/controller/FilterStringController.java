@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 문자열 출력 controller
+ * 문자열 필터링 controller
  */
 @RestController
 @RequestMapping("/filter/string")
@@ -23,8 +23,7 @@ public class FilterStringController {
     private final MakeStringService makeStringService;
 
     /**
-     * html 코드 내에서 문자열 추출
-     *
+     * 문자열 필터링
      * @return
      */
     @GetMapping

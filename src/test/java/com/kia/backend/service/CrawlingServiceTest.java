@@ -41,16 +41,16 @@ class CrawlingServiceTest {
             crawlingService.getCrawlingByUrl(crawlingSite.getUrl());
         }
         long afterTime = System.currentTimeMillis();
-        long oneTaskTime = (afterTime - beforeTime) / 1000;
+        long taskTime = (afterTime - beforeTime) / 1000;
 
         beforeTime = System.currentTimeMillis();
         crawlingService.getAllAsyncCrawling();
         afterTime = System.currentTimeMillis();
-        long allTaskTime = (afterTime - beforeTime) / 1000;
+        long asyncTaskTime = (afterTime - beforeTime) / 1000;
 
         // then
         // async로 모든 사이트 크롤링 하는 시간이 건건이 모든 사이트 크롤링 하는 시간보다 작다.
-        assertThat(oneTaskTime).isGreaterThan(allTaskTime);
+        assertThat(taskTime).isGreaterThan(asyncTaskTime);
 
     }
 

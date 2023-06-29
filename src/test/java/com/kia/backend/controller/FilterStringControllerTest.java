@@ -1,7 +1,5 @@
 package com.kia.backend.controller;
 
-import com.kia.backend.constant.CrawlingSite;
-import com.kia.backend.dto.FilterStringDto;
 import com.kia.backend.service.CrawlingService;
 import com.kia.backend.service.MakeStringService;
 import org.junit.jupiter.api.DisplayName;
@@ -9,30 +7,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.util.StringUtils;
-
-import java.util.List;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 @DisplayName("문자열 출력 api 컨트롤러 테스트")
 @WebMvcTest(FilterStringController.class)
 class FilterStringControllerTest {
     private final MockMvc mvc;
-
-    @MockBean private CrawlingService crawlingService;
-    @MockBean  private MakeStringService makeStringService;
+    @MockBean
+    private MakeStringService makeStringService;
+    @MockBean
+    private CrawlingService crawlingService;
 
     FilterStringControllerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
@@ -40,29 +32,50 @@ class FilterStringControllerTest {
 
     @Test
     @DisplayName("문자열 출력 api 컨트롤러 테스트 - body Object key/value 검증, 호출 성공여부, content type(json)")
-    void givenTestData_whenGetAllAsyncCrawling_thenExcuteObjectCheck() throws Exception {
+    void givenTestData_whenGetFilterString_thenResponseCheck() throws Exception {
         // Given
-        String anyString = "A23****<12222aaaaBCDdddddefghIilmtv123";
-        String expectedResult = "Aa1B2C3DdefghIilmtv";
-        given(makeStringService.getFilterByString(anyString)).willReturn(expectedResult);
+        String expectedResult = "Aa0Bb1Cc2Dd3Ee4Ff5Gg6Hh7Ii8Jj9KkLlMmNnOoPpQqRrSsTtUuVvWwXxYy";
+        String mergeHtml = crawlingService.getAllAsyncCrawling();
+        given(makeStringService.getFilterByString(mergeHtml)).willReturn(expectedResult);
 
         // When & Then
         mvc.perform(get("/filter/string"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
-                .andDo(print());
-        then(makeStringService).should().getFilterByString(anyString());
+                .andExpect(jsonPath("$.merge").exists())
+                .andExpect(jsonPath("$.status", 200).exists());
+
+       then(makeStringService).should().getFilterByString(mergeHtml);
     }
 
     @Test
     @DisplayName("문자열 출력 api 컨트롤러 테스트 - ehcache 테스트")
-    void givenTestData_whenGetAllAsyncCdrawling_thenExcuteObjectCheck() {
+    void givenTestDataNothing_whenGetFilterString_thenApplyEhcacheCheck() throws Exception {
         // given
-        String kiaSiteUrl = CrawlingSite.KIA.getUrl();
-        // when
+        // when & then
+        // 최초 호출 시 cache 적용 되지 않음
+        long beforeTime = System.currentTimeMillis();
+        mvc.perform(get("/filter/string")).andExpect(status().isOk());
+        long afterTime = System.currentTimeMillis();
+        long noEhCacheTime = afterTime - beforeTime;
 
-        // then
-        // html 시작 태그와 종료 태그 check
+        // 1회 호출 이후 ttl이 지나지 않았므로 cache 적용되어 응답이 더 빠름
+        beforeTime = System.currentTimeMillis();
+        mvc.perform(get("/filter/string")).andExpect(status().isOk());
+        afterTime = System.currentTimeMillis();
+        long ehCacheTime = afterTime - beforeTime;
+        assertThat(noEhCacheTime).isGreaterThan(ehCacheTime);
+
+        // cache 시간을 만료시키기 위해서 ttl 만큼 sleep
+        int ehcacheMillis = 3000;
+        Thread.sleep(ehcacheMillis);
+
+        // ttl 만료 이후 최초 접속이므로 시간이 cache 적용 시 보다 더 오래걸림
+        beforeTime = System.currentTimeMillis();
+        mvc.perform(get("/filter/string")).andExpect(status().isOk());
+        afterTime = System.currentTimeMillis();
+        noEhCacheTime = afterTime - beforeTime;
+        assertThat(noEhCacheTime).isGreaterThan(ehCacheTime);
     }
 
 }
