@@ -3,8 +3,8 @@ package com.kia.backend.constant;
 /**
  * 패턴 정의
  */
-public class PatternConstant {
+public class PatternType {
 
     /* 숫자와 영어를 제외 pattern */
-    public static final String ALPHABET_NUMBERIC_PATTERN =  "[^a-zA-Z0-9]";
+    public static final String ALPHABET_DISIT_PATTERN =  "[^a-zA-Z0-9]";
 }

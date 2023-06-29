@@ -1,12 +1,16 @@
 package com.kia.backend.service.impl;
 
-import com.kia.backend.constant.PatternConstant;
+import com.kia.backend.constant.PatternType;
 import com.kia.backend.service.MakeStringService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import static com.kia.backend.constant.ASCII.*;
+import static java.util.stream.Collectors.*;
 
 /**
  * 문자열 추출 service implementation
@@ -15,16 +19,16 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class MakeStringServiceImpl implements MakeStringService {
-
     /**
-     * 문자열 merge
+     * 문자열 처리
      * @param targetString
      * @return
      */
     @Override
-    public String getMergeString(String targetString) {
-        Stream<Character> charStream = getCharFilter(targetString);
-        return getCrossSort(charStream);
+    public String getFilterByString(String targetString) {
+        if(targetString.isBlank()) return "";
+        IntStream charStream = getFilterCharByString(targetString);
+        return getCrossSortByIntStream(charStream);
     }
 
     /**
@@ -32,48 +36,28 @@ public class MakeStringServiceImpl implements MakeStringService {
      * @param targetString
      * @return
      */
-    public Stream<Character> getCharFilter(String targetString) {
+    public IntStream getFilterCharByString(String targetString) {
         return targetString
-                .replaceAll(PatternConstant.ALPHABET_NUMBERIC_PATTERN, "")
+                .replaceAll(PatternType.ALPHABET_DISIT_PATTERN, "")
                 .chars()
                 .distinct()
-                .sorted()
-                .mapToObj(c -> (char) c);
+                .sorted();
     }
 
     /**
      * 알파벳, 숫자 크로스 정렬
-     * @param charStream
+     * @param targetIntStream
      * @return
      */
-    public String getCrossSort(Stream<Character> charStream) {
-        StringBuilder uppercase = new StringBuilder();
-        StringBuilder lowercase = new StringBuilder();
-        StringBuilder digits = new StringBuilder();
+    public String getCrossSortByIntStream(IntStream targetIntStream) {
+        List<Integer> uppercase = targetIntStream.mapToObj(i->i).collect(toList());
 
-        charStream.forEach(c -> {
-            if (Character.isUpperCase(c)) {
-                uppercase.append(c);
-            } else if (Character.isLowerCase(c)) {
-                lowercase.append(c);
-            } else if (Character.isDigit(c)) {
-                digits.append(c);
-            }
-        });
-
-        int maxLength = Math.max(Math.max(uppercase.length(), lowercase.length()), digits.length());
-
+        // for문 돌아가면서 문자열 생성
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < maxLength; i++) {
-            if (i < uppercase.length()) {
-                result.append(uppercase.charAt(i));
-            }
-            if (i < lowercase.length()) {
-                result.append(lowercase.charAt(i));
-            }
-            if (i < digits.length()) {
-                result.append(digits.charAt(i));
-            }
+        for (int i = 0; i<ALPHABET_COUNT; i++) {
+            if(uppercase.contains(UPPERCASE_MIN+i)) result.append((char)(UPPERCASE_MIN+i));
+            if(uppercase.contains(LOWERCASE_MIN+i)) result.append((char)(LOWERCASE_MIN+i));
+            if(i<uppercase.size() && uppercase.get(i)<=DISIT_MAX) result.append((char)uppercase.get(i).intValue());
         }
 
         return result.toString();
