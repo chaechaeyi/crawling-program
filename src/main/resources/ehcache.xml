@@ -2,6 +2,7 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
 
+    <!-- getFilterString controller cache / 데이터 유형 1개 -->
     <cache name="com.kia.assignment.controller.getFilterString"
            eternal="false"
            maxElementsInMemory="1"

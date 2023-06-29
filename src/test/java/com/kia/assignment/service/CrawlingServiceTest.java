@@ -1,6 +1,7 @@
 package com.kia.assignment.service;
 
 import com.kia.assignment.constant.CrawlingSite;
+import com.kia.assignment.constant.TimeOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("크롤링 테스트")
@@ -60,24 +65,26 @@ class CrawlingServiceTest {
     }
 
     @Test
-    @DisplayName("크롤링 테스트 - async 처리가 되는데 순서 상관없이 실행되는지 테스트")
-    void givenTestDataNothing_whenAsyncWork_thenExcuteIgnoreOrderCheck() throws InterruptedException {
+    @DisplayName("크롤링 테스트 - 병렬 처리 테스트 (시작 시점은 같고 종료시점이 다르므로 실행순서는 동일해야함) ")
+    void givenTestData_whenAsyncWork_thenExcuteIgnoreOrderCheck() throws InterruptedException {
         // given
+        List<CrawlingSite> crawlingSiteList =  List.of(CrawlingSite.values());
+
         // when
         List<String> taskList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            StringBuilder task = new StringBuilder();
-            CompletableFuture.supplyAsync(() -> Thread.currentThread().getName()) .thenAccept(s -> task.append("work1"));
-            CompletableFuture.supplyAsync(() -> Thread.currentThread().getName()) .thenAccept(s -> task.append("work2"));
-            CompletableFuture.supplyAsync(() -> Thread.currentThread().getName()) .thenAccept(s -> task.append("work3"));
-
-            Thread.sleep(1000);
-            taskList.add(task.toString());
+            String task = crawlingSiteList.stream()
+                    .map(v ->
+                            CompletableFuture.supplyAsync(() -> v.name()))
+                    .map(CompletableFuture::join)
+                    .parallel()
+                    .collect(joining());
+            taskList.add(task);
         }
 
         // then
         int sameCount = Collections.frequency(taskList, taskList.get(0));
-        assertThat(taskList.size()).isNotEqualTo(sameCount);
+        assertThat(taskList.size()).isEqualTo(sameCount);
     }
 
 }
