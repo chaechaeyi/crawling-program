@@ -8,7 +8,7 @@ public interface CrawlingService {
      * 모든 대상 사이트의 html 추출 (async)
      * @return
      */
-    String getAllAsyncCrawling();
+    String getAllParallelCrawling();
 
     /**
      * 대상 사이트 html 추출

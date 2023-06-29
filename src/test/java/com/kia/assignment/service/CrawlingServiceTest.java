@@ -1,7 +1,6 @@
 package com.kia.assignment.service;
 
 import com.kia.assignment.constant.CrawlingSite;
-import com.kia.assignment.constant.TimeOut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,11 +25,11 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 정상 html merge return 테스트")
-    void givenTestDataNothing_whenGetAllAsyncCrawling_thenGetHtmlStringCheck() {
+    void givenTestDataNothing_whenGetAllParallelCrawling_thenGetHtmlStringCheck() {
         // given
         //String kiaSiteUrl = CrawlingSite.KIA.getUrl();
         // when
-        String html = crawlingService.getAllAsyncCrawling();
+        String html = crawlingService.getAllParallelCrawling();
         // then
         // html 시작 태그와 종료 태그 check
         assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);
@@ -43,7 +39,7 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트")
-    void givenTestData_whenGetCrawlingByUrlAndGetAllAsyncCrawling_thenTimeCheck() {
+    void givenTestData_whenGetCrawlingByUrlAndGetAllParallelCrawling_thenTimeCheck() {
         // given CrawlingSite
         // when
         long beforeTime = System.currentTimeMillis();
@@ -54,7 +50,7 @@ class CrawlingServiceTest {
         long taskTime = (afterTime - beforeTime) / 1000;
 
         beforeTime = System.currentTimeMillis();
-        crawlingService.getAllAsyncCrawling();
+        crawlingService.getAllParallelCrawling();
         afterTime = System.currentTimeMillis();
         long asyncTaskTime = (afterTime - beforeTime) / 1000;
 
@@ -66,7 +62,7 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 병렬 처리 테스트 (시작 시점은 같고 종료시점이 다르므로 실행순서는 동일해야함) ")
-    void givenTestData_whenAsyncWork_thenExcuteIgnoreOrderCheck() throws InterruptedException {
+    void givenTestData_whenParallelWork_thenExcuteIgnoreOrderCheck() throws InterruptedException {
         // given
         List<CrawlingSite> crawlingSiteList =  List.of(CrawlingSite.values());
 

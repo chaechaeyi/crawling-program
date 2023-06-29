@@ -34,7 +34,7 @@ public class CrawlingServiceImpl implements CrawlingService {
      * @return
      */
     @Override
-    public String getAllAsyncCrawling() {
+    public String getAllParallelCrawling() {
         List<CrawlingSite> crawlingSiteList =  List.of(CrawlingSite.values());
         return  crawlingSiteList.stream()
                 .map(v ->

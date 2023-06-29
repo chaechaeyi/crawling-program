@@ -30,7 +30,7 @@ public class FilterStringController {
     @ResponseStatus(HttpStatus.OK)
     @Cacheable(value = "com.kia.backend.controller.getFilterString", unless = "#result == null")
     public ResponseEntity<FilterStringDto> getFilterString() {
-        String mergeHtml = crawlingService.getAllAsyncCrawling();
+        String mergeHtml = crawlingService.getAllParallelCrawling();
         return ResponseEntity.ok().body(new FilterStringDto(HttpStatus.OK.value(), makeStringService.getFilterByString(mergeHtml)));
     }
 }

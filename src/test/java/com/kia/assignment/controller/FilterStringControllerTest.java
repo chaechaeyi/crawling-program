@@ -34,7 +34,7 @@ class FilterStringControllerTest {
     void givenTestData_whenGetFilterString_thenResponseCheck() throws Exception {
         // Given
         String expectedResult = "Aa0Bb1Cc2Dd3Ee4Ff5Gg6Hh7Ii8Jj9KkLlMmNnOoPpQqRrSsTtUuVvWwXxYy";
-        String mergeHtml = crawlingService.getAllAsyncCrawling();
+        String mergeHtml = crawlingService.getAllParallelCrawling();
         given(makeStringService.getFilterByString(mergeHtml)).willReturn(expectedResult);
 
         // When & Then
