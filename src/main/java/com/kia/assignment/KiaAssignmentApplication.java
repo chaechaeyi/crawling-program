@@ -6,9 +6,9 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @EnableCaching
 @SpringBootApplication
-public class KIATestApplication {
+public class KiaAssignmentApplication {
     public static void main(String[] args) {
-        SpringApplication.run(KIATestApplication.class, args);
+        SpringApplication.run(KiaAssignmentApplication.class, args);
     }
 
 }
