@@ -30,7 +30,7 @@ class FilterStringControllerTest {
     }
 
     @Test
-    @DisplayName("문자열 출력 api 컨트롤러 테스트 - body Object key/value 검증, 호출 성공여부, content type(json)")
+    @DisplayName("문자열 출력 api 컨트롤러 테스트 - response status, body json 검증, content type(json)")
     void givenTestData_whenGetFilterString_thenResponseCheck() throws Exception {
         // Given
         String expectedResult = "Aa0Bb1Cc2Dd3Ee4Ff5Gg6Hh7Ii8Jj9KkLlMmNnOoPpQqRrSsTtUuVvWwXxYy";
