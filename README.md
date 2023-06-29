@@ -53,7 +53,11 @@ sequenceDiagram
       
     * givenTestData_whenGetCrawlingByUrlAndGetAllParallelCrawling_thenTimeCheck
       
-      크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트      
+      크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트
+   
+    * givenTestData_whenGetCrawlingByUrlAndGetAllAsyncCrawling_thenExecuteIgnoreOrderCheck
+
+      순차적으로 처리하지 않는지 테스트
       
 4. MakeStringServiceTest.java - 문자열 생성 테스트
     * givenTestData_whenGetFilterByString_thenResultCheck

@@ -62,4 +62,25 @@ class CrawlingServiceTest {
         assertThat(taskTime).isGreaterThan(parallelTaskTime);
     }
 
+    @Test
+    @DisplayName("크롤링 테스트 - 순차적으로 처리하지 않는지 테스트 ")
+    void givenTestData_whenGetCrawlingByUrlAndGetAllAsyncCrawling_thenExecuteIgnoreOrderCheck() throws InterruptedException {
+        // given
+        // when
+        List<String> taskList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            StringBuilder task = new StringBuilder();
+            CompletableFuture.supplyAsync(()-> "work1").thenAccept(s -> task.append(s));
+            CompletableFuture.supplyAsync(()-> "work2").thenAccept(s -> task.append(s));
+            CompletableFuture.supplyAsync(()-> "work3").thenAccept(s -> task.append(s));
+
+            Thread.sleep(2000);
+            taskList.add(task.toString());
+        }
+
+        // then
+        int sameCount = Collections.frequency(taskList, taskList.get(0));
+        assertThat(taskList.size()).isNotEqualTo(sameCount);
+    }
+
 }
