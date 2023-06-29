@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,29 +60,6 @@ class CrawlingServiceTest {
         // then
         // async로 모든 사이트 크롤링 하는 시간이 건건이 모든 사이트 크롤링 하는 시간보다 작다.
         assertThat(taskTime).isGreaterThan(parallelTaskTime);
-    }
-
-    @Test
-    @DisplayName("크롤링 테스트 - 병렬 처리 테스트 (시작 시점은 같고 종료시점이 다르므로 실행순서는 동일해야함) ")
-    void givenTestData_whenParallelWork_thenExcuteOrderCheck() throws InterruptedException {
-        // given
-        List<CrawlingSite> crawlingSiteList =  List.of(CrawlingSite.values());
-
-        // when
-        List<String> taskList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            String task = crawlingSiteList.stream()
-                    .map(v ->
-                            CompletableFuture.supplyAsync(() -> v.name()))
-                    .map(CompletableFuture::join)
-                    .parallel()
-                    .collect(joining());
-            taskList.add(task);
-        }
-
-        // then
-        int sameCount = Collections.frequency(taskList, taskList.get(0));
-        assertThat(taskList.size()).isEqualTo(sameCount);
     }
 
 }

@@ -53,11 +53,7 @@ sequenceDiagram
       
     * givenTestData_whenGetCrawlingByUrlAndGetAllParallelCrawling_thenTimeCheck
       
-      크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트
-      
-    * givenTestData_whenParallelWork_thenExcuteOrderCheck
-      
-      병렬 처리 테스트 (시작 시점은 같고 종료시점이 다르므로 실행순서는 동일해야함)
+      크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트      
       
 4. MakeStringServiceTest.java - 문자열 생성 테스트
     * givenTestData_whenGetFilterByString_thenResultCheck
