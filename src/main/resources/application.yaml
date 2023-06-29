@@ -6,3 +6,8 @@ logging:
     com.kia.backend: debug
     org.springframework.web.servlet: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+spring:
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml

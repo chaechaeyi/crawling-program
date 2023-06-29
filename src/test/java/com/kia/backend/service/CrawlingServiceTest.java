@@ -49,14 +49,14 @@ class CrawlingServiceTest {
         long allTaskTime = (afterTime - beforeTime) / 1000;
 
         // then
-        // 병렬로 모든 사이트 크롤링 하는 시간이 건건이 모든 사이트 크롤링 하는 시간보다 작다.
+        // async로 모든 사이트 크롤링 하는 시간이 건건이 모든 사이트 크롤링 하는 시간보다 작다.
         assertThat(oneTaskTime).isGreaterThan(allTaskTime);
 
     }
 
     @Test
-    @DisplayName("크롤링 테스트 - 병렬로 처리가 되는데 순서 상관없이 실행되는지 테스트")
-    void givenTestData_whenGetAllAsyncCrawling_thenExcuteObjectCheck() {
+    @DisplayName("크롤링 테스트 - async 처리가 되는데 순서 상관없이 실행되는지 테스트")
+    void givenTestData_whenGetAllAsyncCrawling_thenExcuteIgnoreOrderCheck() {
         // given
         String kiaSiteUrl = CrawlingSite.KIA.getUrl();
         // when

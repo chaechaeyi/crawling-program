@@ -1,6 +1,6 @@
 package com.kia.backend.service;
 
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 /**
  * 문자열 연산 service
@@ -11,19 +11,19 @@ public interface MakeStringService {
      * @param targetString
      * @return
      */
-    String getMergeString(String targetString) ;
+    String getFilterByString(String targetString) ;
 
     /**
      * 전처리 (알파벳,숫자 제외하고 모두 제거(replace)/distinct/sort 처리 된 char stream)
      * @param targetString
      * @return
      */
-    Stream<Character> getCharFilter(String targetString);
+    IntStream getFilterCharByString(String targetString);
 
     /**
      * 알파벳, 숫자 크로스 정렬
-     * @param charStream
+     * @param intStream
      * @return
      */
-    String getCrossSort(Stream<Character> charStream);
+    String getCrossSortByIntStream(IntStream intStream);
 }
