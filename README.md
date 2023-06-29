@@ -1,12 +1,12 @@
 # KIA 과제
----------------------------------------
+
 ## Environments
 * Amazon Corretto Version 17.0.7
 * Spring Boot 3.1.0
 * Gradle
 * lombok
 * jsoup
----------------------------------------
+  
 ## Process
 ### html filtering
 ```mermaid
@@ -20,17 +20,17 @@ sequenceDiagram
     Note over Crawling, Filter: 알파벳,숫자만남기고 제거<br/>/중복 제거(대소문자 구분)<br/>/오름차순으로 정렬<br/>/cross정렬 진행
     Filter->>Server: filtering 된 최종 형태의 String을 반환
 ```
----------------------------------------
+
 ## 프로젝트 패키지 구성
-> src.main.javacom.kia.assignment
->	> controller
->	> constant
->	> dto
->	> service
-> src.test.java.com.kia.assignment
->	> controller
->	> ervice
----------------------------------------
+* src.main.javacom.kia.assignment
+    * controller
+    * constant
+    * dto
+    * service
+* src.test.java.com.kia.assignment
+    * controller
+    * ervice
+
 ## 프로젝트 테스트 코드 구성 
 1. FilterStringControllerTest.java - 문자열 출력 api 컨트롤러 테스트
     * givenTestData_whenGetFilterString_thenResponseCheck
@@ -67,5 +67,5 @@ sequenceDiagram
       
       교차 정렬이 제대로 되었는지 확인
       
----------------------------------------
+
 ## 프로젝트 회고
