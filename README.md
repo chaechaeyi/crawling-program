@@ -83,6 +83,12 @@ sequenceDiagram
 
   (3) 전처리가 모두 된 상태에서 오름차순
 
-* 대상 데이터가 적고 민감도가 적은 데이터라 판단하여  redis cache 대신 ehcache를 적용하였습니다.
-    https://mvnrepository.com/artifact/org.jsoup/jsoup
+* 대상 데이터가 적고 민감도가 적은 데이터라 판단하여  redis cache 대신 ehcache를 적용하였습니다.  
+* jsoup를 사용한 이유
+
+  편리성 : 현재 프로젝트에서는 사용하지 않았지만 원하는 요소를 선택하여 추출 할 수있음음
+  
+  계속적인 버전관리 : 최근 버전은 2023/4/29 업데이트 된 이력이 있고 2010년 만들어진 이후로 2~4개월 버전관리가 이루어 지고 있음.
+  
+  https://mvnrepository.com/artifact/org.jsoup/jsoup
       
