@@ -34,16 +34,26 @@ sequenceDiagram
 ## 프로젝트 테스트 코드 구성 
 1. FilterStringControllerTest.java
     * givenTestData_whenGetFilterString_thenResponseCheck
+      
       문자열 출력 api 컨트롤러 테스트 - response status, body json 검증, content type(json)
+      
     * givenTestDataNothing_whenGetFilterString_thenApplyEhcacheCheck
+      
       문자열 출력 api 컨트롤러 테스트 - ehcache 테스트
+      
 3. CrawlingServiceTest.java
     * givenTestDataNothing_whenGetAllAsyncCrawling_thenGetHtmlStringCheck
+      
       정상 html merge return 테스트
+      
     * givenTestData_whenGetCrawlingByUrlAndGetAllAsyncCrawling_thenTimeCheck
+      
       크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트
+      
     * givenTestDataNothing_whenAsyncWork_thenExcuteIgnoreOrderCheck
+      
       async 처리가 되는데 순서 상관없이 실행되는지 테스트
+      
 4. MakeStringServiceTest.java
     * givenTestData_whenGetFilterByString_thenResultCheck
       문자열 생성 테스트 - 문자열 필터링 테스트 (전처리 & 교차정렬)
