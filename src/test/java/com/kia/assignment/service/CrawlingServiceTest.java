@@ -62,7 +62,7 @@ class CrawlingServiceTest {
 
     @Test
     @DisplayName("크롤링 테스트 - 병렬 처리 테스트 (시작 시점은 같고 종료시점이 다르므로 실행순서는 동일해야함) ")
-    void givenTestData_whenParallelWork_thenExcuteIgnoreOrderCheck() throws InterruptedException {
+    void givenTestData_whenParallelWork_thenExcuteOrderCheck() throws InterruptedException {
         // given
         List<CrawlingSite> crawlingSiteList =  List.of(CrawlingSite.values());
 
