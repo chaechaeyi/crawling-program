@@ -47,15 +47,15 @@ sequenceDiagram
       ehcache 테스트
       
 3. CrawlingServiceTest.java - 크롤링 테스트
-    * givenTestDataNothing_whenGetAllAsyncCrawling_thenGetHtmlStringCheck
+    * givenTestDataNothing_whenGetAllParallelCrawling_thenGetHtmlStringCheck
       
       정상 html merge return 테스트
       
-    * givenTestData_whenGetCrawlingByUrlAndGetAllAsyncCrawling_thenTimeCheck
+    * givenTestData_whenGetCrawlingByUrlAndGetAllParallelCrawling_thenTimeCheck
       
       크롤링 대상 하나에 소모되는 시간과 전체 크롤링에 소모 시간 테스트
       
-    * givenTestDataNothing_whenAsyncWork_thenExcuteIgnoreOrderCheck
+    * givenTestData_whenParallelWork_thenExcuteOrderCheck
       
       병렬 처리 테스트 (시작 시점은 같고 종료시점이 다르므로 실행순서는 동일해야함)
       
