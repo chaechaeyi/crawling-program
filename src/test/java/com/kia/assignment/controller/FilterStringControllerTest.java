@@ -1,7 +1,7 @@
-package com.kia.backend.controller;
+package com.kia.assignment.controller;
 
-import com.kia.backend.service.CrawlingService;
-import com.kia.backend.service.MakeStringService;
+import com.kia.assignment.service.CrawlingService;
+import com.kia.assignment.service.MakeStringService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;

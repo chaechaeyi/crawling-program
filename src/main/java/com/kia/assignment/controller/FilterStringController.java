@@ -1,8 +1,8 @@
-package com.kia.backend.controller;
+package com.kia.assignment.controller;
 
-import com.kia.backend.dto.FilterStringDto;
-import com.kia.backend.service.CrawlingService;
-import com.kia.backend.service.MakeStringService;
+import com.kia.assignment.dto.FilterStringDto;
+import com.kia.assignment.service.CrawlingService;
+import com.kia.assignment.service.MakeStringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;

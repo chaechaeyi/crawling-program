@@ -1,4 +1,4 @@
-package com.kia.backend.constant;
+package com.kia.assignment.constant;
 
 /**
  * ASCII constant

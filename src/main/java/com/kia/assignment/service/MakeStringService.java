@@ -1,4 +1,4 @@
-package com.kia.backend.service;
+package com.kia.assignment.service;
 
 import java.util.stream.IntStream;
 

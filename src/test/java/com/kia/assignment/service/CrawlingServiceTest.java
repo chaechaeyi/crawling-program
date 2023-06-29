@@ -1,6 +1,6 @@
-package com.kia.backend.service;
+package com.kia.assignment.service;
 
-import com.kia.backend.constant.CrawlingSite;
+import com.kia.assignment.constant.CrawlingSite;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

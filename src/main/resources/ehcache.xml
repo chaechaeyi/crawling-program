@@ -2,7 +2,7 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
 
-    <cache name="com.kia.backend.controller.getFilterString"
+    <cache name="com.kia.assignment.controller.getFilterString"
            eternal="false"
            maxElementsInMemory="1"
            overflowToDisk="false"

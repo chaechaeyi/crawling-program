@@ -1,4 +1,4 @@
-package com.kia.backend.dto;
+package com.kia.assignment.dto;
 
 import lombok.Getter;
 

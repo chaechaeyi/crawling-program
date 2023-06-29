@@ -1,8 +1,8 @@
-package com.kia.backend.service.impl;
+package com.kia.assignment.service.impl;
 
-import com.kia.backend.constant.CrawlingSite;
-import com.kia.backend.constant.TimeOut;
-import com.kia.backend.service.CrawlingService;
+import com.kia.assignment.constant.CrawlingSite;
+import com.kia.assignment.constant.TimeOut;
+import com.kia.assignment.service.CrawlingService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

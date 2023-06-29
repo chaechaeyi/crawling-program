@@ -1,4 +1,4 @@
-package com.kia.backend;
+package com.kia.assignment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
