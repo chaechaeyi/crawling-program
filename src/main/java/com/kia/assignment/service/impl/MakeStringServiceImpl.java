@@ -50,14 +50,14 @@ public class MakeStringServiceImpl implements MakeStringService {
      * @return
      */
     public String getCrossSortByIntStream(IntStream targetIntStream) {
-        List<Integer> uppercase = targetIntStream.mapToObj(i->i).collect(toList());
+        List<Integer> charList = targetIntStream.mapToObj(i->i).collect(toList());
 
         // for문 돌아가면서 문자열 생성
         StringBuilder result = new StringBuilder();
         for (int i = 0; i<ALPHABET_COUNT; i++) {
-            if(uppercase.contains(UPPERCASE_MIN+i)) result.append((char)(UPPERCASE_MIN+i));
-            if(uppercase.contains(LOWERCASE_MIN+i)) result.append((char)(LOWERCASE_MIN+i));
-            if(i<uppercase.size() && uppercase.get(i)<=DISIT_MAX) result.append((char)uppercase.get(i).intValue());
+            if(charList.contains(UPPERCASE_MIN+i)) result.append((char)(UPPERCASE_MIN+i));
+            if(charList.contains(LOWERCASE_MIN+i)) result.append((char)(LOWERCASE_MIN+i));
+            if(i<charList.size() && charList.get(i)<=DISIT_MAX) result.append((char)charList.get(i).intValue());
         }
 
         return result.toString();

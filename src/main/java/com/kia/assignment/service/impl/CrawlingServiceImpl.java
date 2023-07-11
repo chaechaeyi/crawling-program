@@ -42,7 +42,6 @@ public class CrawlingServiceImpl implements CrawlingService {
                                         getHtml(v.getUrl()), executor)
                                 .orTimeout(TimeOut.ASYNC_THREAD_MILLIS, TimeUnit.MILLISECONDS))
                 .map(CompletableFuture::join)
-                .parallel()
                 .collect(joining());
     }
 
