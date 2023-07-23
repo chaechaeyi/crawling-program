@@ -1,4 +1,4 @@
-package com.kia.assignment.service;
+package com.crawling.program.service;
 
 /**
  * 크롤링 service

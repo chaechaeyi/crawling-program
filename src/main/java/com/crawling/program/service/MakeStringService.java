@@ -1,4 +1,4 @@
-package com.kia.assignment.service;
+package com.crawling.program.service;
 
 import java.util.stream.IntStream;
 

@@ -1,6 +1,7 @@
-package com.kia.assignment.service;
+package com.crawling.program.service;
 
-import com.kia.assignment.constant.CrawlingSite;
+import com.crawling.program.constant.CrawlingSite;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +35,7 @@ class CrawlingServiceTest {
         // html 시작 태그와 종료 태그 check
         assertThat(html).isNotNull().startsWith(htmlStartTag).endsWith(htmlEndTag);
         // html 시작 태그의 수가 크롤링 대상 사이트 수와 동일한지 check
-        assertThat(CrawlingSite.values().length).isEqualTo(StringUtils.countOccurrencesOf(html, htmlStartTag));
+        Assertions.assertThat(CrawlingSite.values().length).isEqualTo(StringUtils.countOccurrencesOf(html, htmlStartTag));
     }
 
     @Test

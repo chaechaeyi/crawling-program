@@ -1,8 +1,8 @@
-package com.kia.assignment.service.impl;
+package com.crawling.program.service.impl;
 
-import com.kia.assignment.constant.CrawlingSite;
-import com.kia.assignment.constant.TimeOut;
-import com.kia.assignment.service.CrawlingService;
+import com.crawling.program.constant.TimeOut;
+import com.crawling.program.service.CrawlingService;
+import com.crawling.program.constant.CrawlingSite;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,6 +42,7 @@ public class CrawlingServiceImpl implements CrawlingService {
                                         getHtml(v.getUrl()), executor)
                                 .orTimeout(TimeOut.ASYNC_THREAD_MILLIS, TimeUnit.MILLISECONDS))
                 .map(CompletableFuture::join)
+                .parallel()
                 .collect(joining());
     }
 

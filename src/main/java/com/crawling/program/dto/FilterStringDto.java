@@ -1,4 +1,4 @@
-package com.kia.assignment.dto;
+package com.crawling.program.dto;
 
 import lombok.Getter;
 

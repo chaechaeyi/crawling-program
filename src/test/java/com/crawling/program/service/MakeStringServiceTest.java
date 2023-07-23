@@ -1,4 +1,4 @@
-package com.kia.assignment.service;
+package com.crawling.program.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,10 +1,10 @@
-package com.kia.assignment;
+package com.crawling.program;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class KiaAssignmentApplicationTests {
+class CrawlingProgramApplicationTests {
 
     @Test
     void contextLoads() {

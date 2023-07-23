@@ -1,7 +1,7 @@
-package com.kia.assignment.controller;
+package com.crawling.program.controller;
 
-import com.kia.assignment.service.CrawlingService;
-import com.kia.assignment.service.MakeStringService;
+import com.crawling.program.service.CrawlingService;
+import com.crawling.program.service.MakeStringService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

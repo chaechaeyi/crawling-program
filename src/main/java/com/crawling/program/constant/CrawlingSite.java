@@ -1,4 +1,4 @@
-package com.kia.assignment.constant;
+package com.crawling.program.constant;
 
 import lombok.Getter;
 

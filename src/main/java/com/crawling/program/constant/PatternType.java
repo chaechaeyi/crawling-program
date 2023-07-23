@@ -1,4 +1,4 @@
-package com.kia.assignment.constant;
+package com.crawling.program.constant;
 
 /**
  * 패턴 정의

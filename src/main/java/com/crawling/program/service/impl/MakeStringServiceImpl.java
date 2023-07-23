@@ -1,7 +1,7 @@
-package com.kia.assignment.service.impl;
+package com.crawling.program.service.impl;
 
-import com.kia.assignment.constant.PatternType;
-import com.kia.assignment.service.MakeStringService;
+import com.crawling.program.constant.PatternType;
+import com.crawling.program.service.MakeStringService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.kia.assignment.constant.ASCII.*;
+import static com.crawling.program.constant.ASCII.*;
 import static java.util.stream.Collectors.*;
 
 /**

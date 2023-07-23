@@ -1,8 +1,8 @@
-package com.kia.assignment.controller;
+package com.crawling.program.controller;
 
-import com.kia.assignment.dto.FilterStringDto;
-import com.kia.assignment.service.CrawlingService;
-import com.kia.assignment.service.MakeStringService;
+import com.crawling.program.dto.FilterStringDto;
+import com.crawling.program.service.CrawlingService;
+import com.crawling.program.service.MakeStringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
