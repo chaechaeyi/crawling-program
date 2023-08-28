@@ -26,12 +26,12 @@ sequenceDiagram
 
 
 ## 프로젝트 패키지 구성
-* src.main.javacom.kia.assignment
+* src.main.javacom.crawling.assignment
     * controller
     * constant
     * dto
     * service
-* src.test.java.com.kia.assignment
+* src.test.java.com.crawling.assignment
     * controller
     * service
 
